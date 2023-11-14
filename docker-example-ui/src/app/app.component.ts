@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +23,15 @@ export class AppComponent {
     'Dinner'
   ]
 
-  onClick() {
-    
+  public mealForm: FormGroup = new FormGroup({
+    dow: new FormControl(),
+    meal: new FormControl(),
+    mealName: new FormControl()
+  })
+
+  public mealPlan: Array<any> = []
+
+  onSubmit() {
+    this.mealPlan.push(this.mealForm.value);
   }
 }
