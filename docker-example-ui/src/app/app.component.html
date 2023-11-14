@@ -1,0 +1,17 @@
+
+  <h1>Devon's Meal Planner</h1>
+
+  <form>
+    <select name="dow" id="dow">
+        <option *ngFor="let day of daysOfWeek; index as i">
+            {{ day }}
+        </option>
+    </select>
+    <select name="meal" id="meal">
+        <option *ngFor="let meal of meals; index as i">
+            {{ meal }}
+        </option>
+    </select>
+    <input type="text">
+    <button type="submit">Submit</button>
+  </form>
