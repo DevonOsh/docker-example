@@ -47,7 +47,8 @@ app.post('/mealPlans', (req, res) => {
 app.delete('/mealPlans/:id', (req, res) => {
     const id = parseInt(req.params.id);
     deleteMeal(id).then(result => {
-        res.status(200).send(`Deleted meal with ID: ${id}`)
+        let response = JSON.stringify(`Deleted meal with ID: ${id}`)
+        res.status(200).send(response)
     })
     .catch(error =>
         res.status(400).send(error)
