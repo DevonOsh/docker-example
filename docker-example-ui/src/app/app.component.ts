@@ -27,8 +27,8 @@ export class AppComponent implements OnInit {
   ]
 
   public mealForm: FormGroup = new FormGroup({
-    dow: new FormControl(),
-    meal: new FormControl(),
+    dow: new FormControl('Monday'),
+    meal: new FormControl('Breakfast'),
     mealName: new FormControl()
   })
 

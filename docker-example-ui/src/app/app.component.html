@@ -1,7 +1,8 @@
 
+<main>
   <h1>Devon's Meal Planner</h1>
 
-  <form [formGroup]="mealForm" (submit)="onSubmit()">
+  <form [formGroup]="mealForm" (submit)="onSubmit()" >
     <select name="dow" id="dow" formControlName="dow">
         <option *ngFor="let day of daysOfWeek" [value]="day">
             {{ day }}
@@ -18,7 +19,11 @@
 
   <ul>
     <li *ngFor="let meal of mealPlan">
-        {{ meal.dow }} {{ meal.meal }} {{ meal.meal_name }}
+        <span class="list-item">{{ meal.dow }}</span>
+        <span class="list-item">{{ meal.meal }}</span>
+        <span class="list-item">{{ meal.meal_name }}</span>
         <button (click)="onDelete(meal.id)">Delete</button>
     </li>
   </ul>
+</main>
+
