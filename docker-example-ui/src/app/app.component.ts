@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { APIService } from './api-service.service';
+import { Observable, of } from 'rxjs';
+import { MealPlan } from './model';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   public daysOfWeek: Array<string> = [
     'Monday',
     'Tuesday',
@@ -30,14 +32,26 @@ export class AppComponent {
     mealName: new FormControl()
   })
 
-  public mealPlan: Array<any> = []
+  public mealPlan$: Observable<Array<MealPlan>> = of([]);
 
   constructor (private api: APIService) {
     this.api.getCurrentTime().subscribe(response => console.log(response));
   }
 
+  ngOnInit(): void {
+      this.getMeals();
+  }
+
+  getMeals() {
+    this.mealPlan$ = this.api.getMeals();
+  }
+
   onSubmit() {
-    this.mealPlan.push(this.mealForm.value);
-    this.api.getCurrentTime().subscribe(response => console.log(response));
+    let meal = this.mealForm.value;
+    this.api.createMeal(meal.dow, meal.meal, meal.mealName).subscribe(() => this.getMeals());
+  }
+
+  onDelete(id: number) {
+    this.api.deleteMeal(id).subscribe();
   }
 }

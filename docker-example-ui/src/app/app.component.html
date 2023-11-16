@@ -17,7 +17,8 @@
   </form>
 
   <ul>
-    <li *ngFor="let meal of mealPlan">
-        {{ meal.dow }} {{ meal.meal }} {{ meal.mealName }}
+    <li *ngFor="let meal of mealPlan$ | async">
+        {{ meal.dow }} {{ meal.meal }} {{ meal.mealPlan }}
+        <button (click)="onDelete(meal.id)">Delete</button>
     </li>
   </ul>
