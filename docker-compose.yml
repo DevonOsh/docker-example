@@ -9,7 +9,7 @@ services:
       - 2080:2080
     environment:
       PGUSER: devon
-      PGHOST: localhost
+      PGHOST: db
       PGPASSWORD: secret
       PGDATABASE: meals
       PGPORT: 5432
