@@ -1,6 +1,6 @@
 import express from "express";
 import 'dotenv/config';
-import { getCurrentTime } from "./db.js"
+import { getCurrentTime, getMeals, createMeal, deleteMeal } from "./db.js"
 
 const app = express(),
     port = "2080";
@@ -18,8 +18,38 @@ app.listen(port, () => {
 
 app.get('/currentTime', (req, res) => {
     getCurrentTime().then(result => {
-        res.status(200).send(result.rows[0].now);
+        res.status(200).send(result.rows[0].now)
     })
     .catch(error =>
-        res.status(500).send(error))
+        res.status(400).send(error)
+    )
+})
+
+app.get('/mealPlans', (req, res) => {
+    getMeals().then(result => {
+        res.status(200).send(result.rows)
+    })
+    .catch(error =>
+        res.status(400).send(error)
+    )
+})
+
+app.post('/mealPlans', (req, res) => {
+    const { dow, meal, mealName } = req.body;
+    createMeal(dow, meal, mealName).then(result => {
+        res.status(201).send(result)
+    })
+    .catch(error =>
+        res.status(400).send(error)
+    )
+})
+
+app.delete('/mealPlans/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    deleteMeal(id).then(result => {
+        res.status(200).send(`Deleted meal with ID: ${id}`)
+    })
+    .catch(error =>
+        res.status(400).send(error)
+    )
 })
