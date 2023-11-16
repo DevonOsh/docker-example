@@ -9,6 +9,7 @@ COPY --from=ui-build /usr/src/app/docker-example-ui/dist ./docker-example-ui/dis
 COPY package*.json ./
 RUN npm install
 COPY server.js .
+COPY db.js .
 
 EXPOSE 2080
 
