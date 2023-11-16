@@ -13,13 +13,12 @@ app.get('/', (req, res) => {
 })
 
 app.listen(port, () => {
-    getCurrentTime().then(res => console.log(res));
     console.log(`Server listening on port:${port}`)
 })
 
 app.get('/currentTime', (req, res) => {
     getCurrentTime().then(result => {
-        res.status(200).send(result);
+        res.status(200).send(result.rows[0].now);
     })
     .catch(error =>
         res.status(500).send(error))
