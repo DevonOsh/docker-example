@@ -3,8 +3,16 @@ services:
   app:
     container_name: docker-example-ui
     build: .
+    depends_on:
+      - db
     ports: 
       - 2080:2080
+    environment:
+      PGUSER: devon
+      PGHOST: localhost
+      PGPASSWORD: secret
+      PGDATABASE: meals
+      PGPORT: 5432
 
   db:
     image: postgres
