@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
     mealName: new FormControl()
   })
 
-  public mealPlan$: Observable<Array<MealPlan>> = of([]);
+  public mealPlan: Array<MealPlan> = [];
 
   constructor (private api: APIService) {
     this.api.getCurrentTime().subscribe(response => console.log(response));
@@ -43,7 +43,7 @@ export class AppComponent implements OnInit {
   }
 
   getMeals() {
-    this.mealPlan$ = this.api.getMeals();
+    this.api.getMeals().subscribe(result => this.mealPlan = result);
   }
 
   onSubmit() {
@@ -52,6 +52,9 @@ export class AppComponent implements OnInit {
   }
 
   onDelete(id: number) {
-    this.api.deleteMeal(id).subscribe();
+    this.api.deleteMeal(id).subscribe((result) => { 
+        console.log(result)
+        this.getMeals()
+    });
   }
 }
