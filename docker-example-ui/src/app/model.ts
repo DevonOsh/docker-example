@@ -1,6 +1,6 @@
 export interface MealPlan {
     dow: string;
     meal: string;
-    mealPlan: string;
+    meal_name: string;
     id: number;
 }
