@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { APIService } from './api-service.service';
 
 @Component({
   selector: 'app-root',
@@ -31,7 +32,12 @@ export class AppComponent {
 
   public mealPlan: Array<any> = []
 
+  constructor (private api: APIService) {
+    this.api.getCurrentTime().subscribe(response => console.log(response));
+  }
+
   onSubmit() {
     this.mealPlan.push(this.mealForm.value);
+    this.api.getCurrentTime().subscribe(response => console.log(response));
   }
 }
